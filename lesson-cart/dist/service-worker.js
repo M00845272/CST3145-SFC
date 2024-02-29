@@ -15,9 +15,15 @@ self.addEventListener("install", function (e) {
     );
 });
 self.addEventListener("fetch", function (e) {
+    if (
+        e.request.url.startsWith('chrome-extension') ||
+        e.request.url.includes('extension') ||
+        !(e.request.url.indexOf('http') === 0)
+    ) return;
+    
     e.respondWith(
         caches.match(e.request).then(function (cachedFile) {
-            
+          
             //if the file is in the cache, retrieve it from there
             if (cachedFile) {
                 console.log("[Service Worker] Resource fetched from the cache for: " + e.request.url);
@@ -31,7 +37,7 @@ self.addEventListener("fetch", function (e) {
                             e.request.url.includes('extension') ||
                             !(e.request.url.indexOf('http') === 0)
                         ) return;
-                        
+
                         cache.put(e.request, response.clone());
                         console.log("[Service Worker] Resource fetched and saved in the cache for: " +
                             e.request.url);

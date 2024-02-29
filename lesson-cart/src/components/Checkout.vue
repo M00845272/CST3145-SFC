@@ -112,7 +112,7 @@
 <script>
 export default {
     name: "Checkout",
-    props: ["lessons","getImageSrc", "cart", "loadLessons"],
+    props: ["URL","lessons","getImageSrc", "cart", "loadLessons"],
     data: function () {
         return {
             order: {
@@ -193,12 +193,9 @@ export default {
                 })
                 .then(data => {
                     console.log('Order created successfully:', data);
-                    webstore.cart = [];
                     webstore.order = this.getDefaultOrderDetails();
                     webstore.updateAvailableSpaces(lessons);
                     alert('Order Placed Successfully');
-                    webstore.showLesson = true;
-                    this.currentView = LessonList;
                     this.$emit("order-success");
                 })
                 .catch(error => {
@@ -207,6 +204,7 @@ export default {
                 });
         },
         updateAvailableSpaces(cart) {
+            let webstore = this;
             // Send PUT request using Fetch API
             fetch(webstore.URL + '/lesson/update_availability', {
                 method: 'PUT',

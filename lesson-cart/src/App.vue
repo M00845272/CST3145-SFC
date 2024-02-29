@@ -17,9 +17,9 @@
             </div>
         </header>
         <main>
-            <component :is="currentView" :lessons="lessons" :cart="cart" :getImageSrc="getImageSrc"
+            <component :is="currentView" :lessons="lessons" :cart="cart" :getImageSrc="getImageSrc" :URL="URL"
                 @add-item-to-cart="addItemToCart" @load-lessons="loadLessons"
-                @remove-from-cart="removeFromCart" @order-sucess="order-Success"></component>
+                @remove-from-cart="removeFromCart" @order-success="orderSuccess"></component>
         </main>
     </div>
 </template>
@@ -119,6 +119,7 @@ export default {
         orderSuccess() {
             this.showLesson = true;
             this.currentView = LessonList;
+            this.cart = [];
             this.searchLessons();
         },
     },

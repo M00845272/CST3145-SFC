@@ -1,9 +1,9 @@
 var cacheName = "LessonCart";
 var cacheFiles = [
     "index.html",
-    "assets/images/lessoncart-logo-32.png",
-    "assets/images/lessoncart-logo-512.png",
-    "assets/css/index.css"
+    "images/lessoncart-logo-32.png",
+    "images/lessoncart-logo-512.png",
+    "images/lessoncart-logo-maskable-192.png",
 ];
 self.addEventListener("install", function (e) {
     console.log("[Service Worker] Install");
@@ -17,6 +17,7 @@ self.addEventListener("install", function (e) {
 self.addEventListener("fetch", function (e) {
     e.respondWith(
         caches.match(e.request).then(function (cachedFile) {
+            
             //if the file is in the cache, retrieve it from there
             if (cachedFile) {
                 console.log("[Service Worker] Resource fetched from the cache for: " + e.request.url);
@@ -25,6 +26,12 @@ self.addEventListener("fetch", function (e) {
                 return fetch(e.request).then(function (response) {
                     return caches.open(cacheName).then(function (cache) {
                         //add the new file to the cache
+                        if (
+                            e.request.url.startsWith('chrome-extension') ||
+                            e.request.url.includes('extension') ||
+                            !(e.request.url.indexOf('http') === 0)
+                        ) return;
+                        
                         cache.put(e.request, response.clone());
                         console.log("[Service Worker] Resource fetched and saved in the cache for: " +
                             e.request.url);

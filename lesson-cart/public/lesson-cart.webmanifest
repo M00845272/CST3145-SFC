@@ -1,0 +1,27 @@
+{
+    "name": "LessonCart",
+    "short_name": "LessonCart",
+    "description": "Lesson Cart for online lesson booking",
+    "icons": [
+        {
+            "src": "images/lessoncart-logo-32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "images/lessoncart-logo-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "images/lessoncart-logo-maskable-192.png",
+            "sizes": "196x196",
+            "type": "image/png",
+            "purpose": "maskable"
+          }
+    ],
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "background_color": "#260bca",
+    "theme_color": "#317EFB"
+}
